@@ -19,15 +19,15 @@ mongoose.connect("mongodb://localhost:27017/cv").then(() => {
 //Workexperience Schema
 const workexperienceSchema = new mongoose.Schema({
     companyname: {
-        type: String, 
+        type: String,
         required: true
     },
     jobtitle: {
-        type: String, 
+        type: String,
         required: true
     },
     location: {
-        type: String, 
+        type: String,
         required: true
     }
 });
@@ -39,13 +39,39 @@ app.get("/api", async (req, res) => {
     res.json({ message: "Välkommen till detta API!" });
 });
 
-app.get("/workexperiences", async(req, res) => {
+app.get("/workexperiences", async (req, res) => {
     try {
         let result = await Workexperience.find({});
 
         return res.json(result);
-    } catch(error) {
+    } catch (error) {
         return res.status(500).json(error);
+    }
+});
+
+//Post
+app.post("/workexperiences", async (req, res) => {
+    try {
+        let result = await Workexperience.create(req.body);
+
+        return res.json(result);
+    } catch (error) {
+        return res.status(400).json(error);
+    }
+});
+
+//Put
+app.put("/workexperiences/:id", async (req, res) => {
+    try {
+        const result = await Workexperience.findByIdAndUpdate(
+            req.params.id,
+            req.body,
+            { new: true }
+        );
+
+        return res.json(result);
+    } catch (error) {
+        return res.status(400).json(error);
     }
 });
 
