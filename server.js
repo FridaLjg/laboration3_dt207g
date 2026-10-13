@@ -29,6 +29,10 @@ const workexperienceSchema = new mongoose.Schema({
     location: {
         type: String,
         required: true
+    },
+    description: {
+        type: String,
+        required: false
     }
 });
 
@@ -51,7 +55,13 @@ app.get("/workexperiences", async (req, res) => {
 
 //Post
 app.post("/workexperiences", async (req, res) => {
-    const { companyname, jobtitle, location } = req.body;
+    console.log("POST-anrop mottaget");
+    console.log(req.body);
+
+
+    const { companyname, jobtitle, location, description } = req.body;
+
+    console.log(req.body);
 
     if (!companyname || !jobtitle || !location) {
         return res.status(400).json({
