@@ -75,6 +75,25 @@ app.put("/workexperiences/:id", async (req, res) => {
     }
 });
 
+//Delete
+app.delete("/workexperiences/:id", async (req, res) => {
+    try {
+        const result = await Workexperience.findByIdAndDelete(
+            req.params.id
+        );
+
+        if (!result) {
+            return res.status(404).json({
+            });
+        }
+
+        return res.json({
+        });
+    } catch (error) {
+        return res.status(400).json(error);
+    }
+});
+
 app.listen(port, () => {
     console.log('Server har start på port: ' + port);
 });
