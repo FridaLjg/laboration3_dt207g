@@ -16,9 +16,25 @@ mongoose.connect("mongodb://localhost:27017/cv").then(() => {
     console.log("Fel vid anslutning till databas: " + error);
 })
 
+//Workexperience Schema
+const workexperienceSchema = new mongoose.Schema({
+    companyname: {
+        type: String, 
+        required: true
+    },
+    jobtitle: {
+        type: String, 
+        required: true
+    },
+    location: {
+        type: String, 
+        required: true
+    }
+});
+
 //Routes
 app.get("/api", async (req, res) => {
-    res.json({message: "Välkommen till detta API!"});
+    res.json({ message: "Välkommen till detta API!" });
 });
 
 app.listen(port, () => {
