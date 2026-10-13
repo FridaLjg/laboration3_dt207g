@@ -39,6 +39,8 @@ const workexperienceSchema = new mongoose.Schema({
 const Workexperience = mongoose.model("Workexperience", workexperienceSchema);
 
 //Routes
+
+//Get
 app.get("/api", async (req, res) => {
     res.json({ message: "Välkommen till detta API!" });
 });
