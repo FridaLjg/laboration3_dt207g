@@ -51,6 +51,14 @@ app.get("/workexperiences", async (req, res) => {
 
 //Post
 app.post("/workexperiences", async (req, res) => {
+    const { companyname, jobtitle, location } = req.body;
+
+    if (!companyname || !jobtitle || !location) {
+        return res.status(400).json({
+            message: "Arbetsgivare, arbetsroll och plats måste anges!"
+        });
+    }
+
     try {
         let result = await Workexperience.create(req.body);
 
@@ -62,6 +70,14 @@ app.post("/workexperiences", async (req, res) => {
 
 //Put
 app.put("/workexperiences/:id", async (req, res) => {
+    const { companyname, jobtitle, location } = req.body;
+
+    if (!companyname || !jobtitle || !location) {
+        return res.status(400).json({
+            message: "Arbetsgivare, arbetsroll och plats måste anges!"
+        });
+    }
+
     try {
         const result = await Workexperience.findByIdAndUpdate(
             req.params.id,
@@ -84,10 +100,12 @@ app.delete("/workexperiences/:id", async (req, res) => {
 
         if (!result) {
             return res.status(404).json({
+                message: "Arbetserfarenhet hittades inte!"
             });
         }
 
-        return res.json({
+        return res.status(200).json({
+            message: "Arbetserfarenhet raderad!"
         });
     } catch (error) {
         return res.status(400).json(error);
